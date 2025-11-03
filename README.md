@@ -131,7 +131,7 @@ A: Register a new tool with LangGraph and update your agent's tool list in your 
 PRs and feedback welcome! See LICENSE for open source terms.  
 For support, open an issue or ping [@harjin2005](https://github.com/harjin2005).
 
-- **Demo video**: (link here when ready)
+- **Demo video**: https://drive.google.com/file/d/1avXqWfxNWJXdKwan27OGf2YPblJuMFid/view?usp=drive_link
 - **Case study**: https://docs.google.com/document/d/1Yh7XZjrengs8AhQHOStZ-a5T7SFs2hUeTyEG54eZisY/edit?usp=sharing
 
 ## Ready to try?
