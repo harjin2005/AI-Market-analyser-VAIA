@@ -9,7 +9,7 @@ Autonomous market research Q&A and data extractor on any PDF/TXT — powered by 
 🧩 **JSON Data Extraction**: Download structured market summaries (when present) — with "fail safe" output if data is missing.  
 🧠 **Modern Agentic Routing**: Powered by LangGraph for tool calling/Q&A, with HuggingFace MiniLM embeddings for fast and cheap retrieval.  
 🔒 **Prompt Injection & Security**: Multi-layer protection against malicious input and agent logic tampering (see our included case study!).  
-🌎 **Docker Ready**: Spin up everywhere, reproducible outputs, .env-sample for easy local setup.
+
 
 ## Project File Importance Table
 
