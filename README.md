@@ -1,189 +1,136 @@
-# AI Market Analyser (VAIA)
+# VAIA Market Analyst
 
-An AI-powered, end-to-end market intelligence and analysis assistant that aggregates data from news, social media, and financial APIs to deliver actionable insights, risk signals, and investment research. Built for speed, clarity, and reliability with a modular architecture and production-ready tooling.
+Autonomous market research Q&A and data extractor on any PDF/TXT — powered by LangGraph AI agents, HuggingFace embeddings, and ChromaDB.
 
----
-
-## Highlights
-- Executive-ready reports with sentiment, trends, risks, and opportunities
-- Multi-source ingestion: news, social, market data, and custom CSVs
-- LLM-assisted synthesis with transparent sources and citations
-- Reproducible pipelines, caching, and idempotent runs
-- Secure secrets management and configurable runtime
-- Beautiful outputs: dashboards, charts, and PDF/Markdown reports
-
-
-## Demo
-- Screenshots: add images under docs/images and reference below once available
-  - Dashboard: docs/images/dashboard.png
-  - Sentiment Heatmap: docs/images/sentiment-heatmap.png
-  - Entity Trends: docs/images/entity-trends.png
-- Loom/Video placeholder: docs/videos/vaia-demo.mp4 (optional)
-
-```
-![Dashboard](docs/images/dashboard.png)
-![Sentiment Heatmap](docs/images/sentiment-heatmap.png)
-![Entity Trends](docs/images/entity-trends.png)
-```
-
-
-## Architecture Overview
-```
-                +--------------------+
-                |  Config & Secrets  |
-                |  (.env, yaml)      |
-                +----------+---------+
-                           |
-+----------+      +--------v-------+       +-------------------+
-| Sources  |----->| Ingestion      |------>| Storage/Cache     |
-| (News,   |      | (ETL connectors)|      | (SQLite/Parquet)  |
-| Social,  |      +--------+-------+       +---------+---------+
-| Market)  |               |                         |
-+----------+               v                         v
-                    +------+--------+        +-------+-------+
-                    | NLP/LLM Core  |<------>| Feature Eng.  |
-                    | (summaries,   |        | Signals, KPIs |
-                    | sentiment, NER)|       +-------+-------+
-                    +------+--------+                |
-                           |                         v
-                           v                 +-------+--------+
-                    +------+--------+        | Visualization  |
-                    | Report Builder|------->| (Plots/Dash)   |
-                    | (MD/PDF/HTML) |        +----------------+
-                    +---------------+
-```
-
+<!-- Replace with a real screenshot or remove this line -->
 
 ## Features
-- Data ingestion from:
-  - News APIs (NewsAPI, GDELT, etc.)
-  - Social platforms (X/Twitter via API or exports)
-  - Market data (Yahoo Finance, Alpha Vantage, Polygon.io)
-  - Local files (CSV/JSON) for custom datasets
-- Text analytics:
-  - Sentiment analysis, topic modeling, entity recognition
-  - LLM-based summarization with source grounding
-- Signal generation:
-  - Volatility alerts, momentum/trend flags, risk indicators
-- Reporting:
-  - Markdown and PDF export with charts and tables
-  - Auto-generated executive summary and action items
-- Observability & Ops:
-  - Structured logging, retry + backoff, and request caching
 
+⚡ **Ask Any Question about Your PDF**: Upload a market or financial report, get instant, grounded answers using agentic LLM RAG.
 
-## Tech Stack
-- Python 3.10+
-- FastAPI (optional API layer)
-- LangChain / LiteLLM (LLM orchestration)
-- OpenAI/Groq/Local models (configurable)
-- Pandas, NumPy, scikit-learn
-- SQLite/Parquet for local persistence
-- Plotly/Matplotlib/Seaborn for visualization
-- Typer for CLI, Pydantic for config
+🧩 **JSON Data Extraction**: Download structured market summaries (when present) — with "fail safe" output if data is missing.
 
+🧠 **Modern Agentic Routing**: Powered by LangGraph for tool calling/Q&A, with HuggingFace MiniLM embeddings for fast and cheap retrieval.
 
-## Setup
-1) Prerequisites
-- Python 3.10+
-- Make (optional), Git
+🔒 **Prompt Injection & Security**: Multi-layer protection against malicious input and agent logic tampering (see our included case study!).
 
-2) Clone
-- git clone https://github.com/harjin2005/AI-Market-analyser-VAIA.git
-- cd AI-Market-analyser-VAIA
+🌎 **Docker Ready**: Spin up everywhere, reproducible outputs, .env-sample for easy local setup.
 
-3) Environment
-- cp .env.example .env
-- Fill API keys: NEWSAPI_KEY, OPENAI_API_KEY, ALPHA_VANTAGE_KEY, etc.
+## Visual Demo
 
-4) Install
-- python -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\activate
-- pip install -U pip
-- pip install -r requirements.txt
+Add a GIF or screenshot of your app here:
 
-5) Verify
-- python -m vaia.cli --help
+```
+![Chat Screenshot](assets/demo.gif)
+```
 
+## Quick Start
+
+### 1. Clone & Install
+
+```bash
+git clone https://github.com/harjin2005/VAIA-Market-Analysis.git
+cd VAIA-Market-Analysis
+pip install -r requirements.txt
+```
+
+### 2. Configure API Keys
+
+Copy the example env file:
+
+```bash
+cp .env-sample .env
+```
+
+Fill the `.env` with your Groq or OpenAI keys and model (see "Configuration" below).
+
+### 3. Run Locally
+
+```bash
+streamlit run streamlit_app.py
+```
+
+Or with Docker:
+
+```bash
+docker build -t vaia-market-analyst .
+docker run --env-file .env -p 8501:8501 vaia-market-analyst
+```
 
 ## Usage
-Common commands:
-- Ingest latest news for a ticker/topic
-  - python -m vaia.cli ingest --source newsapi --query "AAPL" --days 3
-- Run full analysis pipeline
-  - python -m vaia.cli analyze --query "AAPL" --outputs md,pdf
-- Generate dashboard assets only
-  - python -m vaia.cli visualize --input data/processed/latest.parquet
-- Serve API (optional)
-  - uvicorn vaia.api:app --reload
 
-Outputs will be saved under outputs/ with time-stamped folders containing:
-- report.md / report.pdf
-- charts/*.png
-- data/*.parquet
-
+1. Upload your PDF or TXT report on the home screen.
+2. Ask natural questions in the chat.
+3. Download JSON summary (if relevant data is present in the document).
+4. Clear chat and repeat for new research.
 
 ## Configuration
-- Global config in config/config.yaml
-- Secrets in .env (never commit this)
-- Model/provider settings via env or YAML (e.g., OPENAI_API_KEY, LLM_PROVIDER)
-- Toggle features (e.g., use_cache, enable_api, model_name)
 
+Edit `.env` with:
 
-## Security & Privacy
-- Do not commit secrets: use .env and gitignore
-- Minimal scope API keys; rotate regularly
-- Optional local-only mode with offline models
-- Respect robots.txt and terms of data providers
-- PII-safe processing; redact sensitive terms in logs
-
-
-## Development
-- Lint & format: ruff, black
-- Tests: pytest -q
-- Pre-commit hooks: pre-commit install
-- CI: GitHub Actions (tests + lint on PRs)
-
-
-## Project Structure
 ```
-vaia/
-  api/                # FastAPI endpoints (optional)
-  cli.py             # CLI entry points
-  config/            # YAML configs
-  core/              # LLM/NLP utilities
-  etl/               # Ingestion connectors
-  fe/                # Feature engineering
-  reports/           # Templates/builders
-  viz/               # Plot helpers
-config/
-  config.yaml
-data/
-  raw/ processed/
-outputs/
-  ...                # reports, charts, artifacts
+GROQ_API_KEY=your-groq-key
+GROQ_MODEL=mixtral-8x7b-32768  # (or another supported model)
+EMBEDDING_MODEL_TYPE=huggingface
+EMBEDDING_MODEL_NAME=sentence-transformers/all-MiniLM-L6-v2
+VECTOR_DB_PATH=./chroma_db
+COLLECTION_NAME=innovate_inc_docs
+OPENAI_API_KEY=your-key  # (optional, if using OpenAI as fallback or for embedding)
 ```
 
+## Architecture
 
-## Roadmap
-- [ ] Add social listening with streaming
-- [ ] Plugin system for new data sources
-- [ ] Vector search over knowledge base
-- [ ] Fine-tuned summarization models
-- [ ] Docker images and Helm chart
+```
+User
+ │
+ ▼
+[Streamlit UI] --Upload PDF--> [PDF/Text processor]
+ │                                   │
+ ▼                                   │
+  ──► [Chunking & Embedding (MiniLM)]─┤
+ │                                   ▼
+ ▼                          [ChromaDB Vector Store]
+[User Question]                     │
+ │                                   ▼
+ ▼                        [Retriever (semantic search)]
+[LangGraph Agent: tool routing]     ▼
+    │             ┌───────────────────┘
+    ▼             |
+[Q&A / JSON Extraction Tool] (LLM, tools, schema validation)
+    │
+    ▼
+[Chat/JSON Output]
+```
 
+## Security
 
-## Troubleshooting
-- Install issues: ensure Python 3.10+ and pip >= 23
-- API failures: check rate limits and keys in .env
-- Empty outputs: increase date window or relax filters
-- PDF errors: ensure wkhtmltopdf or use MD-only output
+- All file uploads and user queries are chunked/sanitized.
+- LLM only receives chunked context—never entire untrusted input.
+- JSON extraction is schema-enforced.
+- Prompt attacks fail safe, no hallucinated values.
+- See `Case-Study_-Proactive-Defense-Against-Prompt-Injection-in-LLMs.pdf` for a full security rundown.
 
+## FAQ
 
-## Credits
-- Built by Harjin and contributors
-- Icons and illustrations: undraw.co (optional)
-- Thanks to open-source libraries noted above
+**Q: Why do some JSON fields return 0/empty?**
 
----
+A: If the PDF doesn't contain actual market values, the agent returns a blank/empty structure instead of inventing numbers—ensuring always-safe outputs.
 
-If this project helps you, give it a star and feel free to open issues or PRs!
+**Q: How can I add more LLM tools?**
+
+A: Register a new tool with LangGraph and update your agent's tool list in your backend Python code.
+
+## Contributing / License
+
+PRs and feedback welcome! See LICENSE for open source terms.
+
+For support, open an issue or ping [@harjin2005](https://github.com/harjin2005).
+
+- **Demo video**: (link here when ready)
+- **Case study**: [Case Study: Proactive Defense Against Prompt Injection in LLMs](https://www.perplexity.ai/search/Case-Study_-Proactive-Defense-Against-Prompt-Injection-in-LLMs.pdf)
+
+## Ready to try?
+
+Clone, configure, and run — judge-ready in three commands.
+
+**Star⭐ if helpful!**
