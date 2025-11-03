@@ -27,12 +27,8 @@ Autonomous market research Q&A and data extractor on any PDF/TXT — powered by 
 | `api_main.py` | """FastAPI application for AI Market Analyst (Groq/HuggingFace).""" | Exposes the pipeline over REST—allows integration with UI/Streamlit or external systems |
 | `streamlit_app.py` | *(No header, but imports all modules and sets up Streamlit UI)* | Handles interactive frontend—file upload, Q&A, summaries, data extraction in easy web interface |
 
-## Visual Demo
 
-Add a GIF or screenshot of your app here:
-```
-![Chat Screenshot](assets/demo.gif)
-```
+<img width="1908" height="935" alt="Screenshot 2025-11-03 202852" src="https://github.com/user-attachments/assets/a30e8991-08a5-4036-b09b-cff4af5574ba" />
 
 ## Quick Start
 
@@ -64,9 +60,17 @@ docker run --env-file .env -p 8501:8501 vaia-market-analyst
 
 Navigate to the Streamlit app, upload a PDF/TXT file, and:
 
+<img width="1780" height="752" alt="Screenshot 2025-11-03 191256" src="https://github.com/user-attachments/assets/f295e918-b96c-4a2c-8f28-95c95f86d8ad" />
+
+
 - **Chat**: Ask questions such as "What are the key market trends?" or "Extract the revenue figures."
+
+  <img width="1885" height="734" alt="Screenshot 2025-11-03 231044" src="https://github.com/user-attachments/assets/09633d93-310a-42fd-a6ba-818ababefe95" />
+
 - **JSON Extraction**: Click "Extract Market Data as JSON" for structured data output. If the PDF lacks data, you get an empty structure—no hallucinations.
 - **View History**: Check stored vectorized chunks in your ChromaDB.
+
+
 
 ## Configuration
 
@@ -128,7 +132,7 @@ PRs and feedback welcome! See LICENSE for open source terms.
 For support, open an issue or ping [@harjin2005](https://github.com/harjin2005).
 
 - **Demo video**: (link here when ready)
-- **Case study**: [Case Study: Proactive Defense Against Prompt Injection in LLMs](https://www.perplexity.ai/search/Case-Study_-Proactive-Defense-Against-Prompt-Injection-in-LLMs.pdf)
+- **Case study**: https://docs.google.com/document/d/1Yh7XZjrengs8AhQHOStZ-a5T7SFs2hUeTyEG54eZisY/edit?usp=sharing
 
 ## Ready to try?
 
