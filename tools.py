@@ -1,7 +1,7 @@
 """AI Agent tools using direct Groq API (no ChatGroq wrapper)."""
 from typing import Dict, Any, List
 from groq import Groq
-from langchain.prompts import ChatPromptTemplate
+# Removed unused: from langchain.prompts import ChatPromptTemplate
 # Removed unused: from langchain.schema import Document
 from config import config
 import json
