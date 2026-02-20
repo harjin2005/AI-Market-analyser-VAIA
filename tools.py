@@ -2,7 +2,7 @@
 from typing import Dict, Any, List
 from groq import Groq
 from langchain.prompts import ChatPromptTemplate
-from langchain.schema import Document
+# Removed unused: from langchain.schema import Document
 from config import config
 import json
 import os
