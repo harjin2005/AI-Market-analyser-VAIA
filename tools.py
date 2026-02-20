@@ -5,7 +5,6 @@ from langchain.prompts import ChatPromptTemplate
 # Removed unused: from langchain.schema import Document
 from config import config
 import json
-import os
 
 class AgentTools:
     """Collection of tools for the AI Market Analyst agent."""
